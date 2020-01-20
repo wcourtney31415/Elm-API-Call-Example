@@ -59,7 +59,7 @@ update msg model =
             ( { model | apiCallState = Loading }, getCharacter )
 
         GotCharacter result ->
-            case Debug.log "Result: " result of
+            case result of
                 Ok character ->
                     ( { model | apiCallState = Success, characters = character :: model.characters }, Cmd.none )
 
