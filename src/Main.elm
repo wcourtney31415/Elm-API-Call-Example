@@ -94,7 +94,7 @@ view model =
                 , padding 10
                 ]
                 { onPress = Just RequestCharacter
-                , label = text "My Button"
+                , label = text "Get Character"
                 }
             , el [ centerX ] (text myStr)
             , Element.column [ spacing 10 ]
