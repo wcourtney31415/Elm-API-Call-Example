@@ -139,14 +139,31 @@ view model =
     E.layout [ Background.color S.grey ]
         (E.column
             [ E.centerX
-            , E.centerY
             , E.spacing 20
+            , E.padding 50
             ]
-            [ getCharButton
+            [ header
+            , getCharButton
             , pageState
             , characterList model
             ]
         )
+
+
+header : E.Element Msg
+header =
+    E.el
+        [ Font.size 40
+        , Font.bold
+        , E.paddingEach
+            { top = 0
+            , bottom = 30
+            , right = 0
+            , left = 0
+            }
+        ]
+    <|
+        E.text "Starwars API Accessor"
 
 
 characterList : Model -> E.Element Msg
@@ -167,7 +184,13 @@ getCharButton =
         , S.shadow
         ]
         { onPress = Just RequestCharacter
-        , label = E.el [ Font.size 20, Font.bold ] <| E.text "Get Character"
+        , label =
+            E.el
+                [ Font.size 20
+                , Font.bold
+                ]
+            <|
+                E.text "Get Character"
         }
 
 
@@ -186,7 +209,8 @@ characterDecoder =
         (field "height" string)
 
 
-ffield ( fieldName, val ) =
+fieldToRow : ( String, String ) -> E.Element msg
+fieldToRow ( fieldName, val ) =
     E.row
         [ E.spacing 5 ]
         [ E.el [ Font.bold ] <|
@@ -207,6 +231,6 @@ characterToText character =
         ]
     <|
         E.column [ E.spacing 10 ]
-            [ ffield ( "Name", character.name )
-            , ffield ( "Height", character.height )
+            [ fieldToRow ( "Name", character.name )
+            , fieldToRow ( "Height", character.height )
             ]
